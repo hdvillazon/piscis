@@ -84,6 +84,13 @@ class CategoriaCertificacionController extends Controller
      */
     public function destroy(CategoriaCertificacion $categoriaCertificacion)
     {
-        //
+        $categoriaCertificacion->delete();
+
+		$data = [
+			'status' => 200,
+			'c$categoriaCertificacion' => $categoriaCertificacion
+		];
+
+		return response()->json($data);
     }
 }
