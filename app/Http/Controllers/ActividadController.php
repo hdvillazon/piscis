@@ -84,6 +84,13 @@ class ActividadController extends Controller
 	 */
 	public function destroy(Actividad $actividad)
 	{
-		//
+		$actividad->delete();
+
+		$data = [
+			'status' => 200,
+			'actividad' => $actividad
+		];
+
+		return response()->json($data);
 	}
 }
