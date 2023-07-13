@@ -13,9 +13,14 @@ class RolController extends Controller
 	public function index()
 	{
 		$roles = Rol::orderBy('nombre_largo')
-        ->get();
+		->get();
 
-        return response()->json($roles);
+		$data = [
+			'status' => 200,
+			'roles' => $roles
+		];
+
+		return response()->json($data);
 	}
 
 	/**
@@ -32,11 +37,11 @@ class RolController extends Controller
 	public function store(Request $request)
 	{
 		$rol = new Rol();
-        $rol->nombre_corto = $request->nombre_corto;
-        $rol->nombre_largo = $request->nombre_largo;
-        $rol->save();
+		$rol->nombre_corto = $request->nombre_corto;
+		$rol->nombre_largo = $request->nombre_largo;
+		$rol->save();
 
-        $data = [
+		$data = [
 			'status' => 201,
 			'rol' => $rol
 		];
@@ -49,7 +54,12 @@ class RolController extends Controller
 	 */
 	public function show(Rol $rol)
 	{
-		return response()->json($rol);
+		$data = [
+			'status' => 200,
+			'rol' => $rol
+		];
+
+		return response()->json($data);
 	}
 
 	/**
@@ -57,7 +67,12 @@ class RolController extends Controller
 	 */
 	public function edit(Rol $rol)
 	{		
-		return response()->json($rol);
+		$data = [
+			'status' => 200,
+			'rol' => $rol
+		];
+
+		return response()->json($data);
 	}
 
 	/**
@@ -65,12 +80,12 @@ class RolController extends Controller
 	 */
 	public function update(Request $request, Rol $rol)
 	{
-        $rol->nombre_corto = $request->nombre_corto;
-        $rol->nombre_largo = $request->nombre_largo;
-        $rol->save();
+		$rol->nombre_corto = $request->nombre_corto;
+		$rol->nombre_largo = $request->nombre_largo;
+		$rol->save();
 
-        $data = [
-			'status' => 201,
+		$data = [
+			'status' => 200,
 			'rol' => $rol
 		];
 

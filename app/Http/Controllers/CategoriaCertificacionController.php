@@ -7,90 +7,105 @@ use Illuminate\Http\Request;
 
 class CategoriaCertificacionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        $categorias = CategoriaCertificacion::orderBy('nombre')
-        ->get();
+	/**
+	 * Display a listing of the resource.
+	 */
+	public function index()
+	{
+		$categorias = CategoriaCertificacion::orderBy('nombre')
+		->get();
 
-        return response()->json($categorias);
-    }
+		$data = [
+			'status' => 200,
+			'categorias' => $categorias
+		];
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+		return response()->json($data);
+	}
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        $categoria = new CategoriaCertificacion();
-        $categoria->nombre = $request->nombre;
-        $categoria->estado = $request->estado;
-        $categoria->save();
+	/**
+	 * Show the form for creating a new resource.
+	 */
+	public function create()
+	{
+		//
+	}
 
-        $data = [
+	/**
+	 * Store a newly created resource in storage.
+	 */
+	public function store(Request $request)
+	{
+		$categoria = new CategoriaCertificacion();
+		$categoria->nombre = $request->nombre;
+		$categoria->estado = $request->estado;
+		$categoria->save();
+
+		$data = [
 			'status' => 201,
 			'categoria' => $categoria
 		];
 
 		return response()->json($data);
 
-    }
+	}
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(CategoriaCertificacion $categoria)
-    {
-        return response()->json($categoria);
-    }
+	/**
+	 * Display the specified resource.
+	 */
+	public function show(CategoriaCertificacion $categoria)
+	{
+		$data = [
+			'status' => 200,
+			'categoria' => $categoria
+		];
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(CategoriaCertificacion $categoria)
-    {
-        return response()->json($categoria);
-    }
+		return response()->json($data);
+	}
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, CategoriaCertificacion $categoria)
-    {
-        $categoria->nombre = $request->nombre;
-        $categoria->estado = $request->estado;
-        $categoria->save();
+	/**
+	 * Show the form for editing the specified resource.
+	 */
+	public function edit(CategoriaCertificacion $categoria)
+	{
+		$data = [
+			'status' => 200,
+			'categoria' => $categoria
+		];
 
-        $data = [
+		return response()->json($data);
+	}
+
+	/**
+	 * Update the specified resource in storage.
+	 */
+	public function update(Request $request, CategoriaCertificacion $categoria)
+	{
+		$categoria->nombre = $request->nombre;
+		$categoria->estado = $request->estado;
+		$categoria->save();
+
+		$data = [
 			'status' => 200,
 			'categoria' => $categoria
 		];
 
 		return response()->json($data);
 
-    }
+	}
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(CategoriaCertificacion $categoriaCertificacion)
-    {
-        $categoriaCertificacion->delete();
+	/**
+	 * Remove the specified resource from storage.
+	 */
+	public function destroy(CategoriaCertificacion $categoria)
+	{
+		$categoria->delete();
 
 		$data = [
 			'status' => 200,
-			'c$categoriaCertificacion' => $categoriaCertificacion
+			'categoria' => $categoria
 		];
 
 		return response()->json($data);
-    }
+	}
 }

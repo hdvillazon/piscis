@@ -15,7 +15,12 @@ class ActividadController extends Controller
 		$actividades = Actividad::orderBy('nombre')
 		->get();
 
-		return response()->json($actividades);
+		$data = [
+			'status' => 200,
+			'actividades' => $actividades
+		];
+
+		return response()->json($data);
 	}
 
 	/**
@@ -50,7 +55,12 @@ class ActividadController extends Controller
 	 */
 	public function show(Actividad $actividad)
 	{
-		return response()->json($actividad);
+		$data = [
+			'status' => 200,
+			'actividad' => $actividad
+		];
+
+		return response()->json($data);
 	}
 
 	/**
@@ -58,7 +68,12 @@ class ActividadController extends Controller
 	 */
 	public function edit(Actividad $actividad)
 	{
-		return response()->json($actividad);
+		$data = [
+			'status' => 200,
+			'actividad' => $actividad
+		];
+
+		return response()->json($data);
 	}
 
 	/**

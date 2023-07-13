@@ -50,7 +50,7 @@ class Handler extends ExceptionHandler
 			if ($request->is('api/*')) {
 				return response()->json([
 					'status' => 404,
-					'mensaje' => 'Registro no encontrado'
+					'mensaje' => 'Recurso no encontrado'
 				]);
 			}
 		});
