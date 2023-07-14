@@ -53,11 +53,11 @@ class CategoriaCertificacionController extends Controller
 	/**
 	 * Display the specified resource.
 	 */
-	public function show(CategoriaCertificacion $categoria)
+	public function show(CategoriaCertificacion $categoriaCertificacion)
 	{
 		$data = [
 			'status' => 200,
-			'categoria' => $categoria
+			'categoria' => $categoriaCertificacion
 		];
 
 		return response()->json($data);
@@ -66,7 +66,7 @@ class CategoriaCertificacionController extends Controller
 	/**
 	 * Show the form for editing the specified resource.
 	 */
-	public function edit(CategoriaCertificacion $categoria)
+	public function edit(CategoriaCertificacion $categoriaCertificacion)
 	{
 		$data = [
 			'status' => 200,
@@ -79,15 +79,15 @@ class CategoriaCertificacionController extends Controller
 	/**
 	 * Update the specified resource in storage.
 	 */
-	public function update(Request $request, CategoriaCertificacion $categoria)
+	public function update(Request $request, CategoriaCertificacion $categoriaCertificacion)
 	{
-		$categoria->nombre = $request->nombre;
-		$categoria->estado = $request->estado;
-		$categoria->save();
+		$categoriaCertificacion->nombre = $request->nombre;
+		$categoriaCertificacion->estado = $request->estado;
+		$categoriaCertificacion->save();
 
 		$data = [
 			'status' => 200,
-			'categoria' => $categoria
+			'categoria' => $categoriaCertificacion
 		];
 
 		return response()->json($data);
@@ -97,13 +97,13 @@ class CategoriaCertificacionController extends Controller
 	/**
 	 * Remove the specified resource from storage.
 	 */
-	public function destroy(CategoriaCertificacion $categoria)
+	public function destroy(CategoriaCertificacion $categoriaCertificacion)
 	{
-		$categoria->delete();
+		$categoriaCertificacion->delete();
 
 		$data = [
 			'status' => 200,
-			'categoria' => $categoria
+			'categoria' => $categoriaCertificacion
 		];
 
 		return response()->json($data);
