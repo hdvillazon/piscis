@@ -70,7 +70,7 @@ class CategoriaCertificacionController extends Controller
 	{
 		$data = [
 			'status' => 200,
-			'categoria' => $categoria
+			'categoria' => $categoriaCertificacion
 		];
 
 		return response()->json($data);
