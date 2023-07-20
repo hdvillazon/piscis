@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ActividadController;
 use App\Http\Controllers\CategoriaCertificacionController;
 use App\Http\Controllers\EstudianteController;
+use App\Http\Controllers\MatriculadosController;
 use App\Http\Controllers\ProgramaController;
 use App\Http\Controllers\ProyectoController;
 use App\Http\Controllers\RolController;
@@ -28,6 +29,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::resource('actividad', ActividadController::class);
 Route::resource('categoria_certificacion', CategoriaCertificacionController::class);
 Route::resource('estudiante', EstudianteController::class);
+Route::resource('matriculados', MatriculadosController::class);
 Route::resource('programa', ProgramaController::class);
 Route::resource('proyecto', ProyectoController::class);
 Route::resource('rol', RolController::class);
