@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CategoriaCertificacion;
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
 
 class CategoriaCertificacionController extends Controller
 {
@@ -99,7 +100,31 @@ class CategoriaCertificacionController extends Controller
 	 */
 	public function destroy(CategoriaCertificacion $categoriaCertificacion)
 	{
-		$categoriaCertificacion->delete();
+		try{
+			$categoriaCertificacion->delete();
+
+			$data = [
+				'status' => 200,
+				'categoria' => $categoriaCertificacion
+			];
+		}catch(QueryException $ex){
+			$codigoError = $ex->errorInfo[1];
+
+			if($codigoError == 1451){
+				$data = [
+					'status' => 500,
+					'mensaje' => 'El registro no pudo ser eliminado, ya que tiene relación con otros registros'
+				];
+			}
+		}
+
+		return response()->json($data);
+	}
+
+	public function cambiarEstado(Request $request, CategoriaCertificacion $categoriaCertificacion)
+	{
+		$categoriaCertificacion->estado = $request->estado;
+		$categoriaCertificacion->save();
 
 		$data = [
 			'status' => 200,

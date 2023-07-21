@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Actividad;
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
 
 class ActividadController extends Controller
 {
@@ -39,6 +40,7 @@ class ActividadController extends Controller
 		$actividad = new Actividad();
 		$actividad->nombre = $request->nombre;
 		$actividad->puntos = $request->puntos;
+		$actividad->estado = $request->estado;
 		$actividad->descripcion = $request->descripcion;
 		$actividad->save();
 
@@ -83,6 +85,7 @@ class ActividadController extends Controller
 	{
 		$actividad->nombre = $request->nombre;
 		$actividad->puntos = $request->puntos;
+		$actividad->estado = $request->estado;
 		$actividad->descripcion = $request->descripcion;
 		$actividad->save();
 
@@ -99,7 +102,31 @@ class ActividadController extends Controller
 	 */
 	public function destroy(Actividad $actividad)
 	{
-		$actividad->delete();
+		try{
+			$actividad->delete();
+
+			$data = [
+				'status' => 200,
+				'actividad' => $actividad
+			];
+		}catch(QueryException $ex){
+			$codigoError = $ex->errorInfo[1];
+
+			if($codigoError == 1451){
+				$data = [
+					'status' => 500,
+					'mensaje' => 'El registro no pudo ser eliminado, ya que tiene relación con otros registros'
+				];
+			}
+		}
+
+		return response()->json($data);
+	}
+
+	public function cambiarEstado(Request $request, Actividad $actividad)
+	{
+		$actividad->estado = $request->estado;
+		$actividad->save();
 
 		$data = [
 			'status' => 200,

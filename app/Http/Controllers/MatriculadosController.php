@@ -49,11 +49,11 @@ class MatriculadosController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Matriculados $matriculado)
+    public function edit(Matriculados $matriculados)
     {
         $data = [
 			'status' => 200,
-			'matriculados' => $matriculado
+			'matriculados' => $matriculados
 		];
 
 		return response()->json($data);
@@ -62,16 +62,16 @@ class MatriculadosController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Matriculados $matriculado)
+    public function update(Request $request, Matriculados $matriculados)
     {
 
-        $matriculado->cantidad = $request->cantidad;
-		$matriculado->programa_id = $request->programa_id;
-		$matriculado->save();
+        $matriculados->cantidad = $request->cantidad;
+		$matriculados->programa_id = $request->programa_id;
+		$matriculados->save();
 
 		$data = [
 			'status' => 200,
-			'matriculados' => $matriculado
+			'matriculados' => $matriculados
 		];
 
         return response()->json($data);

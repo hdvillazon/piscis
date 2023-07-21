@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Programa;
 use App\Models\Matriculados;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 class ProgramaController extends Controller
@@ -105,7 +106,31 @@ class ProgramaController extends Controller
 	 */
 	public function destroy(Programa $programa)
 	{
-		$programa->delete();
+		try{
+			$programa->delete();
+
+			$data = [
+				'status' => 200,
+				'programa' => $programa
+			];
+		}catch(QueryException $ex){
+			$codigoError = $ex->errorInfo[1];
+
+			if($codigoError == 1451){
+				$data = [
+					'status' => 500,
+					'mensaje' => 'El registro no pudo ser eliminado, ya que tiene relación con otros registros'
+				];
+			}
+		}
+
+		return response()->json($data);
+	}
+
+	public function cambiarEstado(Request $request, Programa $programa)
+	{
+		$programa->estado = $request->estado;
+		$programa->save();
 
 		$data = [
 			'status' => 200,

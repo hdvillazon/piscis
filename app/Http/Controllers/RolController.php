@@ -39,6 +39,7 @@ class RolController extends Controller
 		$rol = new Rol();
 		$rol->nombre_corto = $request->nombre_corto;
 		$rol->nombre_largo = $request->nombre_largo;
+		$rol->estado = $request->estado;
 		$rol->save();
 
 		$data = [
@@ -82,6 +83,7 @@ class RolController extends Controller
 	{
 		$rol->nombre_corto = $request->nombre_corto;
 		$rol->nombre_largo = $request->nombre_largo;
+		$rol->estado = $request->estado;
 		$rol->save();
 
 		$data = [
@@ -98,7 +100,31 @@ class RolController extends Controller
 	 */
 	public function destroy(Rol $rol)
 	{
-		$rol->delete();
+		try{
+			$rol->delete();
+
+			$data = [
+				'status' => 200,
+				'rol' => $rol
+			];
+		}catch(QueryException $ex){
+			$codigoError = $ex->errorInfo[1];
+
+			if($codigoError == 1451){
+				$data = [
+					'status' => 500,
+					'mensaje' => 'El registro no pudo ser eliminado, ya que tiene relación con otros registros'
+				];
+			}
+		}
+
+		return response()->json($data);
+	}
+
+	public function cambiarEstado(Request $request, Rol $rol)
+	{
+		$rol->estado = $request->estado;
+		$rol->save();
 
 		$data = [
 			'status' => 200,
