@@ -12,8 +12,6 @@ class Tutor extends Model
 
 	protected $table = "tutores";
 
-	protected $with = "grupo";
-
 	public function grupo(): BelongsTo
 	{
 		return $this->belongsTo(Grupo::class);

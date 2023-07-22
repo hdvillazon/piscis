@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Linea;
 use App\Models\Proyecto;
+use App\Models\Tutor;
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
 
 class ProyectoController extends Controller
 {
@@ -28,7 +31,21 @@ class ProyectoController extends Controller
 	 */
 	public function create()
 	{
-		//
+		$lineas = Linea::orderBy('nombre')
+		->with('grupos')
+		->get();
+
+		$tutores = Tutor::orderBy('nombres')
+		->orderBy('apellidos')
+		->get();
+
+		$data = [
+			'status' => 200,
+			'lineas' => $lineas,
+			'tutores' => $tutores
+		];
+
+		return response()->json($data);
 	}
 
 	/**
@@ -99,12 +116,24 @@ class ProyectoController extends Controller
 	 */
 	public function destroy(Proyecto $proyecto)
 	{
-		$proyecto->delete();
+		try{
+			$proyecto->delete();
 
-		$data = [
-			'status' => 200,
-			'proyecto' => $proyecto
-		];
+			$data = [
+				'status' => 200,
+				'proyecto' => $proyecto
+			];
+		}catch(QueryException $ex){
+			$codigoError = $ex->errorInfo[1];
+
+			if($codigoError == 1451){
+				$data = [
+					'status' => 500,
+					'mensaje' => 'El registro no pudo ser eliminado, ya que tiene relación con otros registros'
+				];
+			}
+		}
+
 
 		return response()->json($data);
 	}
