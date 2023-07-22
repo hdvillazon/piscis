@@ -126,17 +126,4 @@ class ProgramaController extends Controller
 
 		return response()->json($data);
 	}
-
-	public function cambiarEstado(Request $request, Programa $programa)
-	{
-		$programa->estado = $request->estado;
-		$programa->save();
-
-		$data = [
-			'status' => 200,
-			'programa' => $programa
-		];
-
-		return response()->json($data);
-	}
 }

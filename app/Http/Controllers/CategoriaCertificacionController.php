@@ -120,17 +120,4 @@ class CategoriaCertificacionController extends Controller
 
 		return response()->json($data);
 	}
-
-	public function cambiarEstado(Request $request, CategoriaCertificacion $categoriaCertificacion)
-	{
-		$categoriaCertificacion->estado = $request->estado;
-		$categoriaCertificacion->save();
-
-		$data = [
-			'status' => 200,
-			'categoria' => $categoriaCertificacion
-		];
-
-		return response()->json($data);
-	}
 }

@@ -120,17 +120,4 @@ class RolController extends Controller
 
 		return response()->json($data);
 	}
-
-	public function cambiarEstado(Request $request, Rol $rol)
-	{
-		$rol->estado = $request->estado;
-		$rol->save();
-
-		$data = [
-			'status' => 200,
-			'rol' => $rol
-		];
-
-		return response()->json($data);
-	}
 }
