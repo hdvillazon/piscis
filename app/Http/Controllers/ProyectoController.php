@@ -16,6 +16,9 @@ class ProyectoController extends Controller
 	public function index()
 	{
 		$proyectos = Proyecto::orderBy('nombre')
+		->with('tutores')
+		->with('estudiantes')
+		->with('lineas')
 		->get();
 
 		$data = [
@@ -72,6 +75,11 @@ class ProyectoController extends Controller
 	 */
 	public function show(Proyecto $proyecto)
 	{
+		$proyecto = $proyecto->with('tutores')
+		->with('estudiantes')
+		->with('lineas')
+		->first();
+		
 		$data = [
 			'status' => 200,
 			'proyecto' => $proyecto
