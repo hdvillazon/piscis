@@ -40,6 +40,9 @@ class ProyectoController extends Controller
 
 		$tutores = Tutor::orderBy('nombres')
 		->orderBy('apellidos')
+		->with('programa')
+		->with('grupo')
+		->with('tipoDocumento')
 		->get();
 
 		$data = [

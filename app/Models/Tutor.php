@@ -16,4 +16,14 @@ class Tutor extends Model
 	{
 		return $this->belongsTo(Grupo::class);
 	}
+
+	public function programa(): BelongsTo
+	{
+		return $this->belongsTo(Programa::class);
+	}
+
+	public function tipoDocumento(): BelongsTo
+	{
+		return $this->belongsTo(TipoDocumento::class);
+	}
 }
