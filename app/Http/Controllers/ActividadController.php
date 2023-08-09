@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Actividad;
-use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
 
 class ActividadController extends Controller
 {
@@ -119,6 +119,19 @@ class ActividadController extends Controller
 				];
 			}
 		}
+
+		return response()->json($data);
+	}
+
+	public function desactivar(Actividad $actividad)
+	{
+		$actividad->estado = 0;
+		$actividad->save();
+
+		$data = [
+			'status' => 200,
+			'actividad' => $actividad
+		];
 
 		return response()->json($data);
 	}

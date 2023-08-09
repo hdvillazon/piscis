@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Rol;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 class RolController extends Controller
@@ -117,6 +118,19 @@ class RolController extends Controller
 				];
 			}
 		}
+
+		return response()->json($data);
+	}
+
+	public function desactivar(Rol $rol)
+	{
+		$rol->estado = 0;
+		$rol->save();
+
+		$data = [
+			'status' => 200,
+			'rol' => $rol
+		];
 
 		return response()->json($data);
 	}

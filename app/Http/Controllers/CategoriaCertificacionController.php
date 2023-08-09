@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\CategoriaCertificacion;
-use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
 
 class CategoriaCertificacionController extends Controller
 {
@@ -117,6 +117,19 @@ class CategoriaCertificacionController extends Controller
 				];
 			}
 		}
+
+		return response()->json($data);
+	}
+
+	public function desactivar(CategoriaCertificacion $categoriaCertificacion)
+	{
+		$categoriaCertificacion->estado = 0;
+		$categoriaCertificacion->save();
+
+		$data = [
+			'status' => 200,
+			'categoriaCertificacion' => $categoriaCertificacion
+		];
 
 		return response()->json($data);
 	}
