@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Programa;
 use App\Models\Matriculados;
 use Illuminate\Http\Request;
 
@@ -12,14 +13,16 @@ class MatriculadosController extends Controller
      */
     public function index()
     {
-        $matriculados = Matriculados::get();
+        $programas = Programa::orderBy('nombre')
+        ->with('matriculados')
+		->get();
 
-        $data = [
+		$data = [
 			'status' => 200,
-			'matriculados' => $matriculados
+			'programas' => $programas
 		];
-        
-        return response()->json($data);
+
+		return response()->json($data);
     }
 
     /**
