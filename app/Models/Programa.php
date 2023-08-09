@@ -4,9 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Programa extends Model
 {
     use HasFactory;
+    
     protected $table = "programas";
+
+    public function matriculados(): HasOne
+    {
+        return $this->hasOne(Matriculados::class);
+    }
 }

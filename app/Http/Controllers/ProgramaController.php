@@ -107,6 +107,7 @@ class ProgramaController extends Controller
 	public function destroy(Programa $programa)
 	{
 		try{
+			$programa->matriculados->delete();			
 			$programa->delete();
 
 			$data = [
