@@ -1,16 +1,11 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Models\Semestre;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
-
-class SemestreController extends Controller
-{
+class SemestreController extends Controller{
     public function index()
-    {
-        // Lógica para mostrar una lista de semestres
+    {// Lógica para mostrar una lista de semestres
         $semestres = Semestre::orderBy('nombre')
         ->get();
 
@@ -33,8 +28,7 @@ class SemestreController extends Controller
     }
 
     public function show(Semestre $semestre)
-    {
-        // Lógica para mostrar los detalles de un semestre específico
+    {// Lógica para mostrar los detalles de un semestre específico
         $data = [
             'status' => 200,
             'semestre' => $semestre
@@ -54,5 +48,31 @@ class SemestreController extends Controller
     public function destroy($id)
     {
         // Lógica para eliminar un semestre
+    }
+
+    public function desactivar(Semestre $semestre){
+        $semestre->estado = 0;
+        $semestre->save();
+
+        $data = [
+            'status' => 200,
+            'semestre' => $semestre
+        ];
+
+        return response()->json($data);
+
+    }
+
+    public function activar(Semestre $semestre){
+        $semestre->estado = 1;
+        $semestre->save();
+
+        $data = [
+            'status' => 200,
+            'semestre' => $semestre
+        ];
+
+        return response()->json($data);
+
     }
 }

@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ActividadController;
@@ -11,7 +10,6 @@ use App\Http\Controllers\ProyectoController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\TutorController;
 use App\Http\Controllers\SemestreController;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -47,4 +45,6 @@ Route::resource('rol', RolController::class);
 
 Route::resource('tutor', TutorController::class);
 
+Route::patch('semestre/{semestre}/desactivar', [SemestreController::class, 'desactivar']);
+Route::patch('semestre/{semestre}/activar', [SemestreController::class, 'activar']);
 Route::resource('semestre', SemestreController::class);
