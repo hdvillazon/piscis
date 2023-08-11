@@ -12,4 +12,4 @@
 
 ## Documentación de la API
 
-[Documentación] (https://app.theneo.io/independiente/piscis)
+[Documentación](https://app.theneo.io/independiente/piscis)
