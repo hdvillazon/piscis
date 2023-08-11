@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Programa;
-use App\Models\Matriculados;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
@@ -44,11 +43,6 @@ class ProgramaController extends Controller
 		$programa->acronimo = $request->acronimo;
 		$programa->estado = $request->estado;
 		$programa->save();
-
-		$matriculados = new Matriculados();
-		$matriculados->cantidad = 0;
-		$matriculados->programa_id = $programa->id;
-		$matriculados->save();
 
 		$data = [
 			'status' => 201,
@@ -108,7 +102,6 @@ class ProgramaController extends Controller
 	public function destroy(Programa $programa)
 	{
 		try{
-			$programa->matriculados->delete();			
 			$programa->delete();
 
 			$data = [
