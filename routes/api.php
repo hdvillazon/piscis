@@ -10,6 +10,7 @@ use App\Http\Controllers\ProgramaController;
 use App\Http\Controllers\ProyectoController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\TutorController;
+use App\Http\Controllers\SemestreController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,3 +46,5 @@ Route::patch('rol/{rol}/desactivar', [RolController::class, 'desactivar']);
 Route::resource('rol', RolController::class);
 
 Route::resource('tutor', TutorController::class);
+
+Route::resource('semestre', SemestreController::class);
