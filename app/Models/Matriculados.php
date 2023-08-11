@@ -12,6 +12,8 @@ class Matriculados extends Model
 
 	protected $table = "matriculados";
 
+	protected $fillable = ['anio', 'periodo', 'cantidad', 'programa_id'];
+
 	public function programa(): BelongsTo
 	{
 		return $this->belongsTo(Programa::class);
