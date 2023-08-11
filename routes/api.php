@@ -10,6 +10,7 @@ use App\Http\Controllers\ProyectoController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\TutorController;
 use App\Http\Controllers\SemestreController;
+use App\Http\Controllers\TipoDocumentoController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -48,3 +49,5 @@ Route::resource('tutor', TutorController::class);
 Route::patch('semestre/{semestre}/desactivar', [SemestreController::class, 'desactivar']);
 Route::patch('semestre/{semestre}/activar', [SemestreController::class, 'activar']);
 Route::resource('semestre', SemestreController::class);
+
+Route::resource('tipo_documento', TipoDocumentoController::class);
