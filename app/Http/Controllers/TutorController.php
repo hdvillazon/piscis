@@ -13,6 +13,8 @@ class TutorController extends Controller
 	public function index()
 	{
 		$tutores = Tutor::orderBy('nombres')
+        ->with('grupo')
+        ->with('programa')
 		->orderBy('apellidos')
 		->get();
 
@@ -20,7 +22,7 @@ class TutorController extends Controller
 			'status' => 200,
 			'tutores' => $tutores
 		];
-		
+
 		return response()->json($data);
 	}
 
