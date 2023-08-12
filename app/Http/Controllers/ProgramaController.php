@@ -61,7 +61,7 @@ class ProgramaController extends Controller
 			'status' => 200,
 			'programa' => $programa
 		];
-		
+
 		return response()->json($data);
 	}
 
@@ -74,7 +74,7 @@ class ProgramaController extends Controller
 			'status' => 200,
 			'programa' => $programa
 		];
-		
+
 		return response()->json($data);
 	}
 
@@ -125,6 +125,19 @@ class ProgramaController extends Controller
 	public function desactivar(Programa $programa)
 	{
 		$programa->estado = 0;
+		$programa->save();
+
+		$data = [
+			'status' => 200,
+			'programa' => $programa
+		];
+
+		return response()->json($data);
+	}
+
+    public function activar(Programa $programa)
+	{
+		$programa->estado = 1;
 		$programa->save();
 
 		$data = [

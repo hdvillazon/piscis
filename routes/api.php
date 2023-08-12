@@ -37,6 +37,7 @@ Route::resource('estudiante', EstudianteController::class);
 Route::resource('matriculados', MatriculadosController::class)->parameters(['matriculados' => 'matriculados']);
 
 Route::patch('programa/{programa}/desactivar', [ProgramaController::class, 'desactivar']);
+Route::patch('programa/{programa}/activar', [ProgramaController::class, 'activar']);
 Route::resource('programa', ProgramaController::class);
 
 Route::resource('proyecto', ProyectoController::class);
