@@ -26,6 +26,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 	return $request->user();
 });
 
+Route::patch('actividad/{actividad}/activar', [ActividadController::class, 'activar']);
 Route::patch('actividad/{actividad}/desactivar', [ActividadController::class, 'desactivar']);
 Route::resource('actividad', ActividadController::class);
 

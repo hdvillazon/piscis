@@ -135,4 +135,17 @@ class ActividadController extends Controller
 
 		return response()->json($data);
 	}
+
+    public function activar(Actividad $actividad)
+	{
+		$actividad->estado = 1;
+		$actividad->save();
+
+		$data = [
+			'status' => 200,
+			'actividad' => $actividad
+		];
+
+		return response()->json($data);
+	}
 }
