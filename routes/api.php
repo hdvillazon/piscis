@@ -30,6 +30,7 @@ Route::patch('actividad/{actividad}/activar', [ActividadController::class, 'acti
 Route::patch('actividad/{actividad}/desactivar', [ActividadController::class, 'desactivar']);
 Route::resource('actividad', ActividadController::class);
 
+Route::patch('categoria_certificacion/{categoriaCertificacion}/activar', [CategoriaCertificacionController::class, 'activar']);
 Route::patch('categoria_certificacion/{categoriaCertificacion}/desactivar', [CategoriaCertificacionController::class, 'desactivar']);
 Route::resource('categoria_certificacion', CategoriaCertificacionController::class);
 

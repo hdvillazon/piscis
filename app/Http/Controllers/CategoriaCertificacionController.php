@@ -133,4 +133,17 @@ class CategoriaCertificacionController extends Controller
 
 		return response()->json($data);
 	}
+
+    public function activar(CategoriaCertificacion $categoriaCertificacion)
+	{
+		$categoriaCertificacion->estado = 1;
+		$categoriaCertificacion->save();
+
+		$data = [
+			'status' => 200,
+			'categoriaCertificacion' => $categoriaCertificacion
+		];
+
+		return response()->json($data);
+	}
 }
