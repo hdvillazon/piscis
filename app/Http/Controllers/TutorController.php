@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Grupo;
+use App\Models\Programa;
+use App\Models\TipoDocumento;
 use App\Models\Tutor;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 class TutorController extends Controller
@@ -13,9 +17,12 @@ class TutorController extends Controller
 	public function index()
 	{
 		$tutores = Tutor::orderBy('nombres')
-        ->with('grupo')
-        ->with('programa')
 		->orderBy('apellidos')
+		->with('grupo')
+		->with('programa')
+		->with('tipoDocumento')
+		->withCount('lineas as total_lineas')
+		->withCount('proyectos as total_proyectos')
 		->get();
 
 		$data = [
@@ -31,7 +38,23 @@ class TutorController extends Controller
 	 */
 	public function create()
 	{
-		//
+		$grupos = Grupo::orderBy('nombre')
+		->get();
+
+		$programas = Programa::orderBy('nombre')
+		->get();
+
+		$tiposDocumento = TipoDocumento::orderBy('nombre_largo')
+		->get();
+
+		$data = [
+			'status' => 200,
+			'grupos' => $grupos,
+			'programas' => $programas,
+			'tiposDocumento' => $tiposDocumento
+		];
+
+		return response()->json($data);
 	}
 
 	/**
@@ -47,6 +70,7 @@ class TutorController extends Controller
 		$tutor->programa_id = $request->programa_id;
 		$tutor->grupo_id = $request->grupo_id;
 		$tutor->documento = $request->documento;
+		$tutor->estado = $request->estado;
 		$tutor->tipo_documento_id = $request->tipo_documento_id;
 		$tutor->save();
 
@@ -96,6 +120,7 @@ class TutorController extends Controller
 		$tutor->programa_id = $request->programa_id;
 		$tutor->grupo_id = $request->grupo_id;
 		$tutor->documento = $request->documento;
+		$tutor->estado = $request->estado;
 		$tutor->tipo_documento_id = $request->tipo_documento_id;
 		$tutor->save();
 
@@ -112,7 +137,31 @@ class TutorController extends Controller
 	 */
 	public function destroy(Tutor $tutor)
 	{
-		$tutor->delete();
+		try{
+			$tutor->delete();
+
+			$data = [
+				'status' => 200,
+				'tutor' => $tutor
+			];
+		}catch(QueryException $ex){
+			$codigoError = $ex->errorInfo[1];
+
+			if($codigoError == 1451){
+				$data = [
+					'status' => 500,
+					'mensaje' => 'El registro no pudo ser eliminado, ya que tiene relación con otros registros'
+				];
+			}
+		}
+
+		return response()->json($data);
+	}
+
+	public function cambiarEstado(Request $request, Tutor $tutor)
+	{
+		$tutor->estado = $request->estado;
+		$tutor->save();
 
 		$data = [
 			'status' => 200,

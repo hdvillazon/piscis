@@ -48,6 +48,7 @@ Route::patch('rol/{rol}/desactivar', [RolController::class, 'desactivar']);
 Route::patch('rol/{rol}/activar', [RolController::class, 'activar']);
 Route::resource('rol', RolController::class);
 
+Route::patch('tutor/{tutor}/cambiar_estado', [TutorController::class, 'cambiarEstado']);
 Route::resource('tutor', TutorController::class);
 
 Route::patch('semestre/{semestre}/desactivar', [SemestreController::class, 'desactivar']);
