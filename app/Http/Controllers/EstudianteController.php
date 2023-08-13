@@ -24,9 +24,15 @@ class EstudianteController extends Controller
 	 */
 	public function create()
 	{
-		$semestres = Semestre::orderBy('numero')->get();
-		$programas = Programa::orderBy('nombre')->get();
-		$tipo_documentos = TipoDocumento::orderBy('nombre_largo')->get();
+		$programas = Programa::orderBy('nombre')
+		->get();
+
+		$semestres = Semestre::orderBy('numero')
+		->where('estado', 1)
+		->get();
+		
+		$tipo_documentos = TipoDocumento::orderBy('nombre_largo')
+		->get();
 
 		$data = [
 			'semestres' => $semestres,

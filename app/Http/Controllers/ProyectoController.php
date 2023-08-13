@@ -36,6 +36,7 @@ class ProyectoController extends Controller
 	{
 		$lineas = Linea::orderBy('nombre')
 		->with('grupos')
+		->where('estado', 1)
 		->get();
 
 		$tutores = Tutor::orderBy('nombres')
@@ -43,6 +44,7 @@ class ProyectoController extends Controller
 		->with('programa')
 		->with('grupo')
 		->with('tipoDocumento')
+		->where('estado', 1)
 		->get();
 
 		$data = [
