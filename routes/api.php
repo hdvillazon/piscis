@@ -27,26 +27,22 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 	return $request->user();
 });
 
-Route::patch('actividad/{actividad}/activar', [ActividadController::class, 'activar']);
-Route::patch('actividad/{actividad}/desactivar', [ActividadController::class, 'desactivar']);
+Route::patch('actividad/{actividad}/cambiar_estado', [ActividadController::class, 'cambiarEstado']);
 Route::resource('actividad', ActividadController::class);
 
-Route::patch('categoria_certificacion/{categoriaCertificacion}/activar', [CategoriaCertificacionController::class, 'activar']);
-Route::patch('categoria_certificacion/{categoriaCertificacion}/desactivar', [CategoriaCertificacionController::class, 'desactivar']);
+Route::patch('categoria_certificacion/{categoriaCertificacion}/cambiar_estado', [CategoriaCertificacionController::class, 'cambiarEstado']);
 Route::resource('categoria_certificacion', CategoriaCertificacionController::class);
 
 Route::resource('estudiante', EstudianteController::class);
 
 Route::resource('matriculados', MatriculadosController::class)->parameters(['matriculados' => 'matriculados']);
 
-Route::patch('programa/{programa}/desactivar', [ProgramaController::class, 'desactivar']);
-Route::patch('programa/{programa}/activar', [ProgramaController::class, 'activar']);
+Route::patch('programa/{programa}/cambiar_estado', [ProgramaController::class, 'cambiarEstado']);
 Route::resource('programa', ProgramaController::class);
 
 Route::resource('proyecto', ProyectoController::class);
 
-Route::patch('rol/{rol}/desactivar', [RolController::class, 'desactivar']);
-Route::patch('rol/{rol}/activar', [RolController::class, 'activar']);
+Route::patch('rol/{rol}/cambiar_estado', [RolController::class, 'cambiarEstado']);
 Route::resource('rol', RolController::class);
 
 Route::patch('semestre/{semestre}/cambiar_estado', [SemestreController::class, 'cambiarEstado']);

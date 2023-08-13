@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class CategoriaCertificacion extends Model
 {
-    use HasFactory;
-    protected $table = "categorias_certificacion";
-
+	use HasFactory;
+	
+	protected $table = "categorias_certificacion";
 }
