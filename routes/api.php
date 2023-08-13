@@ -8,9 +8,10 @@ use App\Http\Controllers\MatriculadosController;
 use App\Http\Controllers\ProgramaController;
 use App\Http\Controllers\ProyectoController;
 use App\Http\Controllers\RolController;
-use App\Http\Controllers\TutorController;
 use App\Http\Controllers\SemestreController;
 use App\Http\Controllers\TipoDocumentoController;
+use App\Http\Controllers\TutorController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -48,10 +49,10 @@ Route::patch('rol/{rol}/desactivar', [RolController::class, 'desactivar']);
 Route::patch('rol/{rol}/activar', [RolController::class, 'activar']);
 Route::resource('rol', RolController::class);
 
-Route::patch('tutor/{tutor}/cambiar_estado', [TutorController::class, 'cambiarEstado']);
-Route::resource('tutor', TutorController::class);
-
 Route::patch('semestre/{semestre}/cambiar_estado', [SemestreController::class, 'cambiarEstado']);
 Route::resource('semestre', SemestreController::class);
 
 Route::resource('tipo_documento', TipoDocumentoController::class);
+
+Route::patch('tutor/{tutor}/cambiar_estado', [TutorController::class, 'cambiarEstado']);
+Route::resource('tutor', TutorController::class);
