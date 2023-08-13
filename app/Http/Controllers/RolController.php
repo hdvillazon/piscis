@@ -68,7 +68,7 @@ class RolController extends Controller
 	 * Show the form for editing the specified resource.
 	 */
 	public function edit(Rol $rol)
-	{		
+	{
 		$data = [
 			'status' => 200,
 			'rol' => $rol
@@ -125,6 +125,19 @@ class RolController extends Controller
 	public function desactivar(Rol $rol)
 	{
 		$rol->estado = 0;
+		$rol->save();
+
+		$data = [
+			'status' => 200,
+			'rol' => $rol
+		];
+
+		return response()->json($data);
+	}
+
+    public function activar(Rol $rol)
+	{
+		$rol->estado = 1;
 		$rol->save();
 
 		$data = [

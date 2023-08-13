@@ -44,6 +44,7 @@ Route::resource('programa', ProgramaController::class);
 Route::resource('proyecto', ProyectoController::class);
 
 Route::patch('rol/{rol}/desactivar', [RolController::class, 'desactivar']);
+Route::patch('rol/{rol}/activar', [RolController::class, 'activar']);
 Route::resource('rol', RolController::class);
 
 Route::resource('tutor', TutorController::class);
