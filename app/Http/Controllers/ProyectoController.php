@@ -67,6 +67,9 @@ class ProyectoController extends Controller
 		$proyecto->descripcion = $request->descripcion;
 		$proyecto->save();
 
+		$proyecto->lineas()->attach($request->lineas);
+		$proyecto->tutores()->attach($request->tutores);
+
 		$data = [
 			'status' => 201,
 			'proyecto' => $proyecto
