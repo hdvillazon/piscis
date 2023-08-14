@@ -153,4 +153,25 @@ class ProyectoController extends Controller
 
 		return response()->json($data);
 	}
+
+	public function cambiarEstado(Request $request, Proyecto $proyecto)
+	{
+		// Obtener el estado actual
+        $estadoActual = $proyecto->estado;
+
+        // Cambiar el estado de 0 a 1 o de 1 a 0
+        $nuevoEstado = ($estadoActual == 0) ? 1 : 0;
+
+        // Actualizar el estado en el modelo y guardar los cambios
+        $proyecto->estado = $nuevoEstado;
+        $proyecto->save();
+
+		$data = [
+			'status' => 200,
+			'proyecto' => $proyecto
+		];
+
+		return response()->json($data);
+	}
+
 }

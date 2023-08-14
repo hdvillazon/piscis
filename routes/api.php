@@ -40,6 +40,7 @@ Route::resource('matriculados', MatriculadosController::class)->parameters(['mat
 Route::patch('programa/{programa}/cambiar_estado', [ProgramaController::class, 'cambiarEstado']);
 Route::resource('programa', ProgramaController::class);
 
+Route::patch('proyecto/{proyecto}/cambiar_estado', [ProyectoController::class, 'cambiarEstado']);
 Route::resource('proyecto', ProyectoController::class);
 
 Route::patch('rol/{rol}/cambiar_estado', [RolController::class, 'cambiarEstado']);
