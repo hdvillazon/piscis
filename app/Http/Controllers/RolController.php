@@ -124,8 +124,15 @@ class RolController extends Controller
 
 	public function cambiarEstado(Request $request, Rol $rol)
 	{
-		$rol->estado = $request->estado;
-		$rol->save();
+		// Obtener el estado actual
+        $estadoActual = $rol->estado;
+
+        // Cambiar el estado de 0 a 1 o de 1 a 0
+        $nuevoEstado = ($estadoActual == 0) ? 1 : 0;
+
+        // Actualizar el estado en el modelo y guardar los cambios
+        $rol->estado = $nuevoEstado;
+        $rol->save();
 
 		$data = [
 			'status' => 200,

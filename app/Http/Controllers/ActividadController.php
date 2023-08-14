@@ -125,8 +125,15 @@ class ActividadController extends Controller
 
 	public function cambiarEstado(Request $request, Actividad $actividad)
 	{
-		$actividad->estado = $request->estado;
-		$actividad->save();
+		// Obtener el estado actual
+        $estadoActual = $actividad->estado;
+
+        // Cambiar el estado de 0 a 1 o de 1 a 0
+        $nuevoEstado = ($estadoActual == 0) ? 1 : 0;
+
+        // Actualizar el estado en el modelo y guardar los cambios
+        $actividad->estado = $nuevoEstado;
+        $actividad->save();
 
 		$data = [
 			'status' => 200,
