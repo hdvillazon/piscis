@@ -13,13 +13,13 @@ class GrupoController extends Controller
 	 */
 	public function index()
 	{
-		$grupo = Grupo::orderBy('nombre')
-		->with(['tutores.programa', 'tutores.grupo', 'tutores.tipoDocumento'])
+		$grupos = Grupo::orderBy('nombre')
+		->with(['lineas', 'tutores.proyectos'])
 		->get();
 
 		$data = [
 			'status' => 200,
-			'grupos' => $grupo
+			'grupos' => $grupos
 		];
 
 		return response()->json($data);
@@ -46,12 +46,9 @@ class GrupoController extends Controller
 	 */
 	public function show(Grupo $grupo)
 	{
-
-		$grupo->load('lineas');
-
 		$data = [
 			'status' => 200,
-			'programa' => $grupo
+			'grupo' => $grupo
 		];
 
 		return response()->json($data);
