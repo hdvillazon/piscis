@@ -14,6 +14,6 @@ class Linea extends Model
 
 	public function grupos(): BelongsToMany
 	{
-		return $this->belongsToMany(Grupo::class);
+		return $this->belongsToMany(Grupo::class, 'grupo_linea');
 	}
 }

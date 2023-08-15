@@ -17,4 +17,10 @@ class Grupo extends Model
 	{
 		return $this->hasMany(Tutor::class);
 	}
+
+	public function lineas(): BelongsToMany
+	{
+		return $this->belongsToMany(Tutor::class, 'grupo_linea');
+	}
+
 }

@@ -46,6 +46,9 @@ class GrupoController extends Controller
 	 */
 	public function show(Grupo $grupo)
 	{
+
+		$grupo->load('lineas');
+
 		$data = [
 			'status' => 200,
 			'programa' => $grupo
