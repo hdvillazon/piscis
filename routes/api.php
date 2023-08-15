@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ActividadController;
 use App\Http\Controllers\CategoriaCertificacionController;
 use App\Http\Controllers\EstudianteController;
+use App\Http\Controllers\GrupoController;
 use App\Http\Controllers\MatriculadosController;
 use App\Http\Controllers\ProgramaController;
 use App\Http\Controllers\ProyectoController;
@@ -53,3 +54,6 @@ Route::resource('tipo_documento', TipoDocumentoController::class);
 
 Route::patch('tutor/{tutor}/cambiar_estado', [TutorController::class, 'cambiarEstado']);
 Route::resource('tutor', TutorController::class);
+
+Route::patch('grupo/{grupo}/cambiar_estado', [GrupoController::class, 'cambiarEstado']);
+Route::resource('grupo', GrupoController::class);

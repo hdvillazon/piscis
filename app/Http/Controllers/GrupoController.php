@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Grupo;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 class GrupoController extends Controller
@@ -12,7 +13,16 @@ class GrupoController extends Controller
 	 */
 	public function index()
 	{
-		//
+		$grupo = Grupo::orderBy('nombre')
+		->with(['tutores.programa', 'tutores.grupo', 'tutores.tipoDocumento'])
+		->get();
+
+		$data = [
+			'status' => 200,
+			'grupos' => $grupo
+		];
+
+		return response()->json($data);
 	}
 
 	/**
@@ -36,7 +46,12 @@ class GrupoController extends Controller
 	 */
 	public function show(Grupo $grupo)
 	{
-		//
+		$data = [
+			'status' => 200,
+			'programa' => $grupo
+		];
+
+		return response()->json($data);
 	}
 
 	/**
@@ -61,5 +76,25 @@ class GrupoController extends Controller
 	public function destroy(Grupo $grupo)
 	{
 		//
+	}
+
+    public function cambiarEstado(Request $request, Grupo $grupo)
+	{
+		// Obtener el estado actual
+        $estadoActual = $grupo->estado;
+
+        // Cambiar el estado de 0 a 1 o de 1 a 0
+        $nuevoEstado = ($estadoActual == 0) ? 1 : 0;
+
+        // Actualizar el estado en el modelo y guardar los cambios
+        $grupo->estado = $nuevoEstado;
+        $grupo->save();
+
+		$data = [
+			'status' => 200,
+			'grupo' => $grupo
+		];
+
+		return response()->json($data);
 	}
 }

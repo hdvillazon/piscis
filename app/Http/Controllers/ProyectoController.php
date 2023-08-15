@@ -87,7 +87,7 @@ class ProyectoController extends Controller
 		->with('estudiantes')
 		->with('lineas')
 		->first();
-		
+
 		$data = [
 			'status' => 200,
 			'proyecto' => $proyecto
