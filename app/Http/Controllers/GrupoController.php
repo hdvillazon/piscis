@@ -14,7 +14,7 @@ class GrupoController extends Controller
 	public function index()
 	{
 		$grupos = Grupo::orderBy('nombre')
-		->with(['lineas', 'tutores.proyectos'])
+		->with(['lineas', 'tutores.proyectos', 'tutores.programa'])
 		->get();
 
 		$data = [
