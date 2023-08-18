@@ -160,7 +160,13 @@ class TutorController extends Controller
 
 	public function cambiarEstado(Request $request, Tutor $tutor)
 	{
-		$tutor->estado = $request->estado;
+		// Obtener el estado actual
+        $estadoActual = $tutor->estado;
+
+        // Cambiar el estado de 0 a 1 o de 1 a 0
+        $nuevoEstado = ($estadoActual == 0) ? 1 : 0;
+
+		$tutor->estado = $nuevoEstado;
 		$tutor->save();
 
 		$data = [

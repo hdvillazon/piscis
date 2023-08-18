@@ -12,6 +12,7 @@ use App\Http\Controllers\RolController;
 use App\Http\Controllers\SemestreController;
 use App\Http\Controllers\TipoDocumentoController;
 use App\Http\Controllers\TutorController;
+use App\Http\Controllers\LineaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,8 +53,11 @@ Route::resource('semestre', SemestreController::class);
 
 Route::resource('tipo_documento', TipoDocumentoController::class);
 
+Route::patch('grupo/{grupo}/cambiar_estado', [GrupoController::class, 'cambiarEstado']);
+Route::resource('grupo', GrupoController::class);
+
 Route::patch('tutor/{tutor}/cambiar_estado', [TutorController::class, 'cambiarEstado']);
 Route::resource('tutor', TutorController::class);
 
-Route::patch('grupo/{grupo}/cambiar_estado', [GrupoController::class, 'cambiarEstado']);
-Route::resource('grupo', GrupoController::class);
+Route::patch('linea/{linea}/cambiar_estado', [LineaController::class, 'cambiarEstado']);
+Route::resource('linea', LineaController::class);
