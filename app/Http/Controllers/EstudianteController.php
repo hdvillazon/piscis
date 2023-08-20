@@ -15,8 +15,15 @@ class EstudianteController extends Controller
 	 */
 	public function index()
 	{
-		$estudiantes = Estudiante::orderBy('apellidos')->orderBy('nombres')->get();
-		return response()->json($estudiantes);
+		$estudiantes = Estudiante::orderBy('apellidos')->orderBy('nombres')
+        ->get();
+
+        $data = [
+			'status' => 200,
+			'estudiantes' => $estudiantes
+		];
+
+		return response()->json($data);
 	}
 
 	/**
@@ -30,7 +37,7 @@ class EstudianteController extends Controller
 		$semestres = Semestre::orderBy('numero')
 		->where('estado', 1)
 		->get();
-		
+
 		$tipo_documentos = TipoDocumento::orderBy('nombre_largo')
 		->get();
 
@@ -80,7 +87,12 @@ class EstudianteController extends Controller
 	 */
 	public function show(Estudiante $estudiante)
 	{
-		return response()->json($estudiante);
+        $data = [
+			'status' => 200,
+			'actividad' => $estudiante
+		];
+
+		return response()->json($data);
 	}
 
 	/**
@@ -88,7 +100,7 @@ class EstudianteController extends Controller
 	 */
 	public function edit(Estudiante $estudiante)
 	{
-		
+
 	}
 
 	/**

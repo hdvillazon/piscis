@@ -23,6 +23,7 @@ class TutorController extends Controller
 		->with('tipoDocumento')
 		->withCount('lineas as total_lineas')
 		->withCount('proyectos as total_proyectos')
+        ->with('lineas')
 		->get();
 
 		$data = [
