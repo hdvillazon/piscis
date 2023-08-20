@@ -15,7 +15,12 @@ class EstudianteController extends Controller
 	 */
 	public function index()
 	{
-		$estudiantes = Estudiante::orderBy('apellidos')->orderBy('nombres')
+		$estudiantes = Estudiante::orderBy('apellidos')
+        ->orderBy('nombres')
+        ->with('actividades')
+        ->with('categorias_certificacion')
+        ->with('programas')
+        ->with('semestres')
         ->get();
 
         $data = [
