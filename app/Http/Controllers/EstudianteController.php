@@ -23,10 +23,22 @@ class EstudianteController extends Controller
         ->with('categorias_certificacion')
         ->with('programa')
         ->with('semestre')
-        ->with('proyectos')
+        ->with('proyectos.lineas')
         ->with('tipo_documento')
         ->with('tutores.programa')
         ->get();
+
+        foreach ($estudiantes as $estudiante) {
+            $lineasTotales = [];
+
+            foreach ($estudiante->proyectos as $proyecto) {
+                foreach ($proyecto->lineas as $linea) {
+                    $lineasTotales[$linea->id] = $linea;
+                }
+            }
+
+            $estudiante->lineas_totales = array_values($lineasTotales);
+        }
 
         $data = [
 			'status' => 200,

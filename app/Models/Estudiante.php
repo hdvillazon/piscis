@@ -50,9 +50,9 @@ class Estudiante extends Model
         return $this->belongsToMany(Tutor::class);
     }
 
-    // public function lineas():HasManyThrough
-    // {
-    //     return $this->hasManyThrough(Linea::class, Proyecto::class);
-    // }
+    public function lineas():HasManyThrough
+    {
+        return $this->hasManyThrough(Linea::class, Proyecto::class);
+    }
 
 }
