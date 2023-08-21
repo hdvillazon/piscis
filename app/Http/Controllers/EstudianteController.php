@@ -38,6 +38,7 @@ class EstudianteController extends Controller
             }
 
             $estudiante->lineas_totales = array_values($lineasTotales);
+            $estudiante->puntos_totales = 'x';
         }
 
         $data = [
