@@ -25,6 +25,7 @@ class EstudianteController extends Controller
         ->with('semestre')
         ->with('proyectos')
         ->with('tipo_documento')
+        ->with('tutores.programa')
         ->get();
 
         $data = [
