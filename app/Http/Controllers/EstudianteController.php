@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Estudiante;
 use App\Models\Semestre;
 use App\Models\Programa;
 use App\Models\TipoDocumento;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 class EstudianteController extends Controller
@@ -19,8 +21,10 @@ class EstudianteController extends Controller
         ->orderBy('nombres')
         ->with('actividades')
         ->with('categorias_certificacion')
-        ->with('programas')
-        ->with('semestres')
+        ->with('programa')
+        ->with('semestre')
+        ->with('proyectos')
+        ->with('tipo_documento')
         ->get();
 
         $data = [
@@ -72,6 +76,7 @@ class EstudianteController extends Controller
 		$estudiante->correo_personal = $request->correo_personal;
 		$estudiante->telefono = $request->telefono;
 		$estudiante->observaciones = $request->observaciones;
+		$estudiante->joven_investigador = $request->joven_investigador;
 		$estudiante->convocatoria_joven_inv = $request->convocatoria_joven_inv;
 		$estudiante->semestre_id = $request->semestre_id;
 		$estudiante->programa_id = $request->programa_id;
@@ -144,6 +149,45 @@ class EstudianteController extends Controller
 	 */
 	public function destroy(Estudiante $estudiante)
 	{
-		//
+		// Lógica para eliminar un tipo de documento
+		try{
+			$estudiante->delete();
+
+			$data = [
+				'status' => 200,
+				'estudiante' => $estudiante
+			];
+		}catch(QueryException $ex){
+			$codigoError = $ex->errorInfo[1];
+
+			if($codigoError == 1451){
+				$data = [
+					'status' => 500,
+					'mensaje' => 'El registro no pudo ser eliminado, ya que tiene relación con otros registros'
+				];
+			}
+		}
+
+		return response()->json($data);
 	}
+
+    // public function cambiarEstado(Request $request, Estudiante $estudiante)
+    // {
+    //     // Obtener el estado actual
+    //     $estadoActual = $estudiante->estado;
+
+    //     // Cambiar el estado de 0 a 1 o de 1 a 0
+    //     $nuevoEstado = ($estadoActual == 0) ? 1 : 0;
+
+    //     // Actualizar el estado en el modelo y guardar los cambios
+    //     $estudiante->estado = $nuevoEstado;
+    //     $estudiante->save();
+
+	// 	$data = [
+	// 		'status' => 200,
+	// 		'estudiante' => $estudiante
+	// 	];
+
+	// 	return response()->json($data);
+    // }
 }

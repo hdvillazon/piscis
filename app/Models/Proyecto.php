@@ -26,4 +26,5 @@ class Proyecto extends Model
 	{
 		return $this->belongsToMany(Tutor::class);
 	}
+    
 }

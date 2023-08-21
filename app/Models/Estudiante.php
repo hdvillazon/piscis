@@ -24,14 +24,24 @@ class Estudiante extends Model
 		return $this->belongsToMany(CategoriaCertificacion::class);
 	}
 
-    public function programas(): BelongsTo
+    public function programa(): BelongsTo
     {
-        return $this->BelongsTo(Programa::class);
+        return $this->belongsTo(Programa::class, 'programa_id');
     }
 
-    public function semestres():BelongsTo
+    public function semestre():BelongsTo
     {
-        return $this->BelongsTo(Semestre::class);
+        return $this->belongsTo(Semestre::class, 'semestre_id');
+    }
+
+    public function proyectos():BelongsToMany
+    {
+        return $this->belongsToMany(Proyecto::class);
+    }
+
+    public function tipo_documento():BelongsTo
+    {
+        return $this->belongsTo(TipoDocumento::class, 'tipo_documento_id');
     }
 
 }

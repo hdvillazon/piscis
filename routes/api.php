@@ -35,6 +35,7 @@ Route::resource('actividad', ActividadController::class);
 Route::patch('categoria_certificacion/{categoriaCertificacion}/cambiar_estado', [CategoriaCertificacionController::class, 'cambiarEstado']);
 Route::resource('categoria_certificacion', CategoriaCertificacionController::class);
 
+Route::patch('estudiante/{estudiante}/cambiar_estado', [EstudianteController::class, 'cambiarEstado']);
 Route::resource('estudiante', EstudianteController::class);
 
 Route::resource('matriculados', MatriculadosController::class)->parameters(['matriculados' => 'matriculados']);
