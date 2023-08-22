@@ -13,6 +13,11 @@ class Tutor extends Model
 
 	protected $table = "tutores";
 
+	public function estudiantes(): BelongsToMany
+	{
+		return $this->belongsToMany(Estudiante::class);
+	}
+
 	public function grupo(): BelongsTo
 	{
 		return $this->belongsTo(Grupo::class);
