@@ -16,9 +16,7 @@ class ProyectoController extends Controller
 	public function index()
 	{
 		$proyectos = Proyecto::orderBy('nombre')
-		->with(['tutores.programa', 'tutores.grupo', 'tutores.tipoDocumento'])
-		->with('estudiantes')
-		->with('lineas')
+		->with(['tutores.programa', 'tutores.grupo', 'tutores.tipoDocumento', 'estudiantes', 'lineas'])
 		->get();
 
 		$data = [

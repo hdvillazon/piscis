@@ -88,9 +88,12 @@ class TutorController extends Controller
 	 */
 	public function show(Tutor $tutor)
 	{
-		$tutor = $tutor->load('proyectos.estudiantes');
+		$tutor = $tutor->load(['proyectos.estudiantes.programa', 'programa']);
 
-		$tutor['estudiantes_sin_proyectos'] = $tutor->estudiantes()->whereDoesntHave('proyectos')->get();
+		$tutor['estudiantes_sin_proyectos'] =  $tutor->estudiantes()
+												->with('programa')
+												->whereDoesntHave('proyectos')
+												->get();
 
 		$data = [
 			'status' => 200,
