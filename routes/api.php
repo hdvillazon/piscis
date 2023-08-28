@@ -39,6 +39,12 @@ Route::patch('estudiante/{estudiante}/consultar', [EstudianteController::class, 
 Route::patch('estudiante/{estudiante}/cambiar_estado', [EstudianteController::class, 'cambiarEstado']);
 Route::resource('estudiante', EstudianteController::class);
 
+Route::patch('grupo/{grupo}/cambiar_estado', [GrupoController::class, 'cambiarEstado']);
+Route::resource('grupo', GrupoController::class);
+
+Route::patch('linea/{linea}/cambiar_estado', [LineaController::class, 'cambiarEstado']);
+Route::resource('linea', LineaController::class);
+
 Route::resource('matriculados', MatriculadosController::class)->parameters(['matriculados' => 'matriculados']);
 
 Route::patch('programa/{programa}/cambiar_estado', [ProgramaController::class, 'cambiarEstado']);
@@ -55,11 +61,5 @@ Route::resource('semestre', SemestreController::class);
 
 Route::resource('tipo_documento', TipoDocumentoController::class);
 
-Route::patch('grupo/{grupo}/cambiar_estado', [GrupoController::class, 'cambiarEstado']);
-Route::resource('grupo', GrupoController::class);
-
 Route::patch('tutor/{tutor}/cambiar_estado', [TutorController::class, 'cambiarEstado']);
 Route::resource('tutor', TutorController::class);
-
-Route::patch('linea/{linea}/cambiar_estado', [LineaController::class, 'cambiarEstado']);
-Route::resource('linea', LineaController::class);

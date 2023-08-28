@@ -81,9 +81,7 @@ class ProyectoController extends Controller
 	 */
 	public function show(Proyecto $proyecto)
 	{
-		$proyecto = $proyecto->with('tutores')
-		->with('estudiantes')
-		->with('lineas')
+		$proyecto = $proyecto->with(['tutores', 'estudiantes', 'lineas'])
 		->first();
 
 		$data = [
