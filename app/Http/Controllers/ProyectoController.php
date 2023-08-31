@@ -81,8 +81,7 @@ class ProyectoController extends Controller
 	 */
 	public function show(Proyecto $proyecto)
 	{
-		$proyecto = $proyecto->with(['tutores', 'estudiantes', 'lineas'])
-		->first();
+		$proyecto = $proyecto->load(['tutores', 'estudiantes', 'lineas']);
 
 		$data = [
 			'status' => 200,
@@ -114,6 +113,20 @@ class ProyectoController extends Controller
 		$proyecto->estado = $request->estado;
 		$proyecto->descripcion = $request->descripcion;
 		$proyecto->save();
+
+		$proyecto->lineas()->sync($request->lineas);
+		$proyecto->tutores()->updateExistingPivot($proyecto->tutores, ['estado' => 0]);
+		
+		
+		//$proyecto->tutores()->syncWithPivotValues($request->tutores, ['estado' => 1], $proyecto->turoe);
+		
+
+//		$proyecto->tutores()->updateExistingPivot($proyecto 'estado', 0);
+
+
+		//$proyecto->tutores()->syncWithoutDetaching($request->tutores, ['estado' => 2]);
+
+		return $proyecto->tutores;
 
 		$data = [
 			'status' => 200,
