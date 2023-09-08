@@ -68,6 +68,8 @@ class ProyectoController extends Controller
 		$proyecto->lineas()->attach($request->lineas);
 		$proyecto->tutores()->attach($request->tutores);
 
+		$proyecto = $proyecto->load(['tutores', 'estudiantes', 'lineas']);
+
 		$data = [
 			'status' => 201,
 			'proyecto' => $proyecto
@@ -115,19 +117,10 @@ class ProyectoController extends Controller
 		$proyecto->save();
 
 		$proyecto->lineas()->sync($request->lineas);
-		$proyecto->tutores()->updateExistingPivot($proyecto->tutores, ['estado' => 0]);
+		$proyecto->tutores()->sync($request->tutores);
+
+		$proyecto = $proyecto->load(['tutores', 'estudiantes', 'lineas']);
 		
-		
-		//$proyecto->tutores()->syncWithPivotValues($request->tutores, ['estado' => 1], $proyecto->turoe);
-		
-
-//		$proyecto->tutores()->updateExistingPivot($proyecto 'estado', 0);
-
-
-		//$proyecto->tutores()->syncWithoutDetaching($request->tutores, ['estado' => 2]);
-
-		return $proyecto->tutores;
-
 		$data = [
 			'status' => 200,
 			'proyecto' => $proyecto
@@ -174,6 +167,8 @@ class ProyectoController extends Controller
         // Actualizar el estado en el modelo y guardar los cambios
         $proyecto->estado = $nuevoEstado;
         $proyecto->save();
+
+		$proyecto = $proyecto->load(['tutores', 'estudiantes', 'lineas']);
 
 		$data = [
 			'status' => 200,
