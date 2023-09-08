@@ -178,4 +178,17 @@ class ProyectoController extends Controller
 		return response()->json($data);
 	}
 
+	public function asignarEstudiante(Request $request, Proyecto $proyecto)
+	{
+		$proyecto->estudiantes()->sync($request->estudiantes);
+		
+		$proyecto = $proyecto->load(['tutores', 'estudiantes', 'lineas']);
+		
+		$data = [
+			'status' => 200,
+			'proyecto' => $proyecto
+		];
+
+		return response()->json($data);
+	}
 }
