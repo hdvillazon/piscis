@@ -119,7 +119,7 @@ class ProyectoController extends Controller
 		$proyecto->lineas()->sync($request->lineas);
 		$proyecto->tutores()->sync($request->tutores);
 
-		$proyecto = $proyecto->load(['tutores', 'estudiantes', 'lineas']);
+		$proyecto->load(['tutores', 'estudiantes', 'lineas']);
 		
 		$data = [
 			'status' => 200,

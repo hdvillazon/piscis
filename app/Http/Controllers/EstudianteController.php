@@ -18,28 +18,10 @@ class EstudianteController extends Controller
     public function index()
     {
         $estudiantes = Estudiante::orderBy('apellidos')
-            ->orderBy('nombres')
-            ->with('actividades')
-            ->with('categorias_certificacion')
-            ->with('programa')
-            ->with('semestre')
-            ->with('proyectos.lineas')
-            ->with('tipo_documento')
-            ->with('tutores.programa')
-            ->get();
-
-        foreach ($estudiantes as $estudiante) {
-            $lineasTotales = [];
-
-            foreach ($estudiante->proyectos as $proyecto) {
-                foreach ($proyecto->lineas as $linea) {
-                    $lineasTotales[$linea->id] = $linea;
-                }
-            }
-
-            $estudiante->lineas_totales = array_values($lineasTotales);
-            $estudiante->puntos_totales = 'x';
-        }
+        ->orderBy('nombres')
+        ->with(['actividades', 'categorias_certificacion', 'programa', 'proyectos', 'semestre', 'tipo_documento', 'tutores'])
+        ->withSum('actividades as puntosActividades', 'puntos')
+        ->get();
 
         $data = [
             'status' => 200,
@@ -111,27 +93,8 @@ class EstudianteController extends Controller
      */
     public function show(Estudiante $estudiante)
     {
-
-        $estudiante->load([
-            'actividades',
-            'categorias_certificacion',
-            'programa',
-            'semestre',
-            'proyectos.lineas',
-            'tipo_documento',
-            'tutores.programa'
-        ]);
-
-        $lineasTotales = [];
-
-        foreach ($estudiante->proyectos as $proyecto) {
-            foreach ($proyecto->lineas as $linea) {
-                $lineasTotales[$linea->id] = $linea;
-            }
-        }
-
-        $estudiante->lineas_totales = array_values($lineasTotales);
-        $estudiante->puntos_totales = 'x';
+        $estudiante->load(['actividades', 'categorias_certificacion', 'programa', 'proyectos', 'semestre', 'tipo_documento', 'tutores'])
+        ->loadSum('actividades as puntosActividades', 'puntos');
 
         $data = [
             'status' => 200,
@@ -225,8 +188,5 @@ class EstudianteController extends Controller
 
     // 	return response()->json($data);
     // }
-
-    public function consultar(Request $request, Estudiante $estudiante)
-    {
-    }
+    
 }
