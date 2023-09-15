@@ -38,7 +38,23 @@ class GrupoController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		//
+
+		// ------------------------ revisar si esta correcta la adición de un nuevo grupo
+
+		$grupo = new grupo();
+		$grupo->nombre = $request->nombre;
+		$grupo->codigo = $request->codigo;
+		$grupo->acronimo = $request->acronimo;
+		$grupo->estado = $request->estado;
+		$grupo->categoria = $request->categoria;
+		$grupo->save();
+
+		$data = [
+			'status' => 201,
+			'actividad' => $grupo
+		];
+
+		return response()->json($data);
 	}
 
 	/**
@@ -67,7 +83,27 @@ class GrupoController extends Controller
 	 */
 	public function update(Request $request, Grupo $grupo)
 	{
-		//
+		//este objeto es de muestra
+		// la idea es hacer que se puedan actualizar los grupos, objeto representa el resutlado despues de actualizar un grupo
+		// objeto es el registro actualizado enviado al font-end
+		// --- hector ---
+		$objeto = [
+			"id"=> 4,
+            "nombre"=> "Altos estudios de Frontera - ALEF",
+            "codigo"=> "COL0041025",
+            "acronimo"=> null,
+            "estado"=> 1,
+            "categoria"=> "A1",
+            "created_at"=> "2023-05-01T05:00:00.000000Z",
+            "updated_at"=> "2023-09-15T12:32:35.000000Z",
+		];
+		//;
+		$data = [
+			'status' => 'sin implementar',
+			'grupo' => $objeto
+		];
+
+		return response()->json($data);
 	}
 
 	/**
@@ -75,7 +111,27 @@ class GrupoController extends Controller
 	 */
 	public function destroy(Grupo $grupo)
 	{
-		//
+		// este objeto es de muestra
+		// la idea es hacer que se puedan eliminar los grupos, objeto representa el resutlado despues de borrar un grupo
+		// objeto es el registro borrado enviado al font-end
+		// --- hector ---
+		$objeto = [
+			"id"=> 4,
+            "nombre"=> "Altos estudios de Frontera - ALEF",
+            "codigo"=> "COL0041025",
+            "acronimo"=> null,
+            "estado"=> 1,
+            "categoria"=> "A1",
+            "created_at"=> "2023-05-01T05:00:00.000000Z",
+            "updated_at"=> "2023-09-15T12:32:35.000000Z",
+		];
+		//;
+		$data = [
+			'status' => 'sin implementar',
+			'grupo' => $objeto
+		];
+
+		return response()->json($data);
 	}
 
     public function cambiarEstado(Request $request, Grupo $grupo)
