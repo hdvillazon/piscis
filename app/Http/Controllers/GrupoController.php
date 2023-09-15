@@ -51,7 +51,7 @@ class GrupoController extends Controller
 
 		$data = [
 			'status' => 201,
-			'actividad' => $grupo
+			'grupo' => $grupo
 		];
 
 		return response()->json($data);
