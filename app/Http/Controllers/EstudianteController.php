@@ -7,6 +7,7 @@ use App\Models\Estudiante;
 use App\Models\Semestre;
 use App\Models\Programa;
 use App\Models\TipoDocumento;
+use App\Models\Actividad;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
@@ -188,5 +189,20 @@ class EstudianteController extends Controller
 
     // 	return response()->json($data);
     // }
+    
+    public function asignarActividades (Request $request, Estudiante $estudiante){
+
+        $estudiante->actividades()->sync($request->actividades);
+
+        $estudiante->load(['actividades', 'categorias_certificacion', 'programa', 'proyectos', 'semestre', 'tipo_documento', 'tutores'])
+        ->loadSum('actividades as puntosActividades', 'puntos');
+        
+        $data = [
+			'status' => 200,
+			'estudiante' => $estudiante
+		];
+
+        return response()->json($data);
+    }
     
 }
