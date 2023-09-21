@@ -75,6 +75,8 @@ class TutorController extends Controller
 		$tutor->tipo_documento_id = $request->tipo_documento_id;
 		$tutor->save();
 
+		/* hector: aqui se debe recibir el arreglo de lineas del tutor */
+
 		$data = [
 			'status' => 201,
 			'tutor' => $tutor
@@ -131,6 +133,8 @@ class TutorController extends Controller
 		$tutor->estado = $request->estado;
 		$tutor->tipo_documento_id = $request->tipo_documento_id;
 		$tutor->save();
+
+		/* hector: aqui se debe recibir y actualizar el arreglo de lineas del tutor */
 
 		$data = [
 			'status' => 200,
