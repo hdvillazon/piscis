@@ -115,6 +115,22 @@ class EstudianteController extends Controller
         $estudiante->load(['actividades', 'categorias_certificacion', 'programa', 'proyectos', 'semestre', 'tipo_documento', 'tutores'])
         ->loadSum('actividades as puntosActividades', 'puntos');
 
+        // hector: esto es provisional, es para simular, que el end-point estudiantes, devuelve un arreglo de las lineas con las que este está relacionado
+        // estas lineas salen de todas aquellas que hacen parte de los proyectos a los que el estudiante esta vincualdo, sin repeticiones de las mismas.
+        // entonces lo que hice fue solo agregar el registro como lo necesito para dejar el front terminado 
+        // en este sentido todos los estudianes van a aparecer con las mismas 5 lineas, a manera de prueba.
+        //
+        $estudiante->lineas = [
+            [
+                'id'=>'210',
+                "nombre"=>"Aceites esenciales y extractos naturales"
+            ],
+            [
+                'id'=>'217',
+                "nombre"=>"Administración y gestión de enfermería en servicios de salud"
+            ]
+        ];
+
         $data = [
             'status' => 200,
             'estudiante' => $estudiante
