@@ -112,7 +112,7 @@ class EstudianteController extends Controller
      */
     public function show(Estudiante $estudiante)
     {
-        $estudiante->load(['actividades', 'categorias_certificacion', 'programa', 'proyectos', 'semestre', 'tipo_documento', 'tutores'])
+        $estudiante->load(['actividades', 'categorias_certificacion', 'programa', 'proyectos', 'semestre', 'tipo_documento', 'tutores.programa'])
         ->loadSum('actividades as puntosActividades', 'puntos');
 
         // hector: esto es provisional, es para simular, que el end-point estudiantes, devuelve un arreglo de las lineas con las que este está relacionado

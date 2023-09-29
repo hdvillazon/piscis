@@ -188,4 +188,25 @@ class TutorController extends Controller
 
 		return response()->json($data);
 	}
+
+	public function proyectos(Tutor $tutor)
+	{
+		$tutor = $tutor->load(['proyectos.estudiantes.programa', 'programa']);
+
+		$tutor['estudiantes_sin_proyectos'] =  $tutor->estudiantes()
+												->with('programa')
+												->whereDoesntHave('proyectos')
+												->get();
+
+		$tutor['proyectos'] =  $tutor->proyectos()
+		->with('estudiantes')
+		->get();
+
+		$data = [
+			'status' => 200,
+			'tutor' => $tutor
+		];
+
+		return response()->json($data);
+	}
 }
