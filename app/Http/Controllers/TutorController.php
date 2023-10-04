@@ -18,14 +18,10 @@ class TutorController extends Controller
 	{
 		$tutores = Tutor::orderBy('nombres')
 		->orderBy('apellidos')
-		->with('grupo')
-		->with('programa')
-		->with('tipoDocumento')
-		->withCount('lineas as total_lineas')
-		->withCount('proyectos as total_proyectos')
-        ->with('lineas')
+		->with(['grupo', 'lineas', 'programa', 'tipoDocumento'])
+		->withCount('lineas as total_lineas', 'proyectos as total_proyectos')
 		->get();
-
+		
 		$data = [
 			'status' => 200,
 			'tutores' => $tutores
@@ -75,7 +71,10 @@ class TutorController extends Controller
 		$tutor->tipo_documento_id = $request->tipo_documento_id;
 		$tutor->save();
 
-		/* hector: aqui se debe recibir el arreglo de lineas del tutor */
+		$tutor->lineas()->attach($request->lineas);
+
+		$tutor->load(['grupo', 'lineas', 'programa', 'tipoDocumento'])
+		->loadCount('lineas as total_lineas', 'proyectos as total_proyectos');
 
 		$data = [
 			'status' => 201,
@@ -134,7 +133,7 @@ class TutorController extends Controller
 		$tutor->tipo_documento_id = $request->tipo_documento_id;
 		$tutor->save();
 
-		/* hector: aqui se debe recibir y actualizar el arreglo de lineas del tutor */
+		$tutor->lineas()->sync($request->lineas);
 
 		$data = [
 			'status' => 200,
@@ -173,10 +172,10 @@ class TutorController extends Controller
 	public function cambiarEstado(Request $request, Tutor $tutor)
 	{
 		// Obtener el estado actual
-        $estadoActual = $tutor->estado;
+		$estadoActual = $tutor->estado;
 
-        // Cambiar el estado de 0 a 1 o de 1 a 0
-        $nuevoEstado = ($estadoActual == 0) ? 1 : 0;
+		// Cambiar el estado de 0 a 1 o de 1 a 0
+		$nuevoEstado = ($estadoActual == 0) ? 1 : 0;
 
 		$tutor->estado = $nuevoEstado;
 		$tutor->save();
@@ -191,6 +190,7 @@ class TutorController extends Controller
 
 	public function proyectos(Tutor $tutor)
 	{
+		//Rafa qué hace esto?
 		$tutor = $tutor->load(['proyectos.estudiantes.programa', 'programa']);
 
 		$tutor['estudiantes_sin_proyectos'] =  $tutor->estudiantes()
