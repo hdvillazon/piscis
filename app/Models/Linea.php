@@ -16,4 +16,9 @@ class Linea extends Model
 	{
 		return $this->belongsToMany(Grupo::class);
 	}
+
+	public function proyectos(): BelongsToMany
+	{
+		return $this->belongsToMany(Proyecto::class);
+	}
 }
