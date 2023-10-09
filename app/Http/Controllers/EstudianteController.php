@@ -31,6 +31,13 @@ class EstudianteController extends Controller
         ->select('l.*')
         ->get();
 
+        // hector agregue esto para que todos los end points tengan la propiedad nombre
+        
+        $estudiantes = $estudiantes->map(function ($estudiante) {
+            // Crear la propiedad "nombre" con los nombres y apellidos
+            $estudiante->nombre = $estudiante->nombres . ' ' . $estudiante->apellidos;
+            return $estudiante;
+        });
 
         // hector: esto es provisional, es para simular, que el end-point estudiantes, devuelve un arreglo de las lineas con las que este está relacionado
         // estas lineas salen de todas aquellas que hacen parte de los proyectos a los que el estudiante esta vincualdo, sin repeticiones de las mismas.
