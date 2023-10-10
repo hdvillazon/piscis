@@ -20,15 +20,8 @@ class EstudianteController extends Controller
     {
         $estudiantes = Estudiante::orderBy('apellidos')
         ->orderBy('nombres')
-        ->with(['actividades', 'categoriasCertificacion', 'programa', 'proyectos', 'semestre', 'tipo_documento', 'tutores'])
+        ->with(['actividades', 'categoriasCertificacion', 'lineas', 'programa', 'proyectos', 'semestre', 'tipo_documento', 'tutores'])
         ->withSum('actividades as puntosActividades', 'puntos')
-        ->get();
-
-        $lineas = Estudiante::join('estudiante_proyecto as ep', 'estudiantes.id', '=', 'ep.estudiante_id')
-        ->join('proyectos as p', 'ep.proyecto_id', 'p.id')
-        ->join('linea_proyecto as lp', 'p.id', 'lp.proyecto_id')
-        ->join('lineas as l', 'lp.linea_id', 'l.id')
-        ->select('l.*')
         ->get();
 
         // hector agregue esto para que todos los end points tengan la propiedad nombre
@@ -38,41 +31,6 @@ class EstudianteController extends Controller
             $estudiante->nombre = $estudiante->nombres . ' ' . $estudiante->apellidos;
             return $estudiante;
         });
-
-        // hector: esto es provisional, es para simular, que el end-point estudiantes, devuelve un arreglo de las lineas con las que este está relacionado
-        // estas lineas salen de todas aquellas que hacen parte de los proyectos a los que el estudiante esta vincualdo, sin repeticiones de las mismas.
-        // entonces lo que hice fue solo agregar el registro como lo necesito para dejar el front terminado 
-        // en este sentido todos los estudianes van a aparecer con las mismas 5 lineas, a manera de prueba.
-        /*$estudiantes = $estudiantes->map(function ($estudiante) {
-			$estudiante->lineas = [
-                [
-                    'id'=>'210',
-                    "nombre"=>"Aceites esenciales y extractos naturales"
-                ],
-                [
-                    'id'=>'217',
-                    "nombre"=>"Administración y gestión de enfermería en servicios de salud"
-                ]
-            ];
-			return $estudiante;
-		});*/
-
-        /*
-        Hector --- esto no se si funciona, esto le faltaba a tu codigo, 
-        solo se mostraban los proyectos y no la informacion de los estudiantes
-        le puse distinct() para evitar registro duplicados -- revisa
-        */
-
-        $estudiantes = $estudiantes->map(function ($estudiante) {
-			$estudiante->lineas = Estudiante::join('estudiante_proyecto as ep', 'estudiantes.id', '=', 'ep.estudiante_id')
-            ->join('proyectos as p', 'ep.proyecto_id', 'p.id')
-            ->join('linea_proyecto as lp', 'p.id', 'lp.proyecto_id')
-            ->join('lineas as l', 'lp.linea_id', 'l.id')
-            ->select('l.*')
-            ->distinct()
-            ->get();
-			return $estudiante;
-		});
 
         $data = [
             'status' => 200,

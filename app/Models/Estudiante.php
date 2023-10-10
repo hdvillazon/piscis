@@ -25,6 +25,15 @@ class Estudiante extends Model
 		return $this->belongsToMany(CategoriaCertificacion::class);
 	}
 
+	public function lineas(): BelongsToMany
+	{
+		return $this->belongsToMany(Proyecto::class)
+		->join('linea_proyecto as lp', 'proyectos.id', '=', 'lp.proyecto_id')
+		->join('lineas as l', 'lp.linea_id', '=', 'l.id')
+		->orderBy('l.nombre')
+		->select('l.*');
+	}
+
 	public function programa(): BelongsTo
 	{
 		return $this->belongsTo(Programa::class, 'programa_id');
