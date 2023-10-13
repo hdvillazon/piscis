@@ -18,6 +18,12 @@ class Tutor extends Model
 		return $this->belongsToMany(Estudiante::class);
 	}
 
+	public function estudiantesSinProyecto(): BelongsToMany
+	{
+		return $this->belongsToMany(Estudiante::class)
+		->whereDoesntHave('proyectos');
+	}
+
 	public function grupo(): BelongsTo
 	{
 		return $this->belongsTo(Grupo::class);

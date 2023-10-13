@@ -64,6 +64,6 @@ Route::resource('semestre', SemestreController::class);
 
 Route::resource('tipo_documento', TipoDocumentoController::class);
 
-Route::get('tutor/{tutor}/proyectos', [TutorController::class, 'proyectos']);
+Route::patch('tutor/{tutor}/asignar_estudiante', [TutorController::class, 'asignarEstudiante']);
 Route::patch('tutor/{tutor}/cambiar_estado', [TutorController::class, 'cambiarEstado']);
 Route::resource('tutor', TutorController::class);

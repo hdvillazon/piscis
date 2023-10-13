@@ -89,12 +89,7 @@ class TutorController extends Controller
 	 */
 	public function show(Tutor $tutor)
 	{
-		$tutor = $tutor->load(['proyectos.estudiantes.programa', 'programa']);
-
-		$tutor['estudiantes_sin_proyectos'] =  $tutor->estudiantes()
-												->with('programa')
-												->whereDoesntHave('proyectos')
-												->get();
+		$tutor = $tutor->load(['estudiantesSinProyecto.programa', 'proyectos.estudiantes.programa', 'programa']);
 
 		$data = [
 			'status' => 200,
@@ -188,19 +183,11 @@ class TutorController extends Controller
 		return response()->json($data);
 	}
 
-	public function proyectos(Tutor $tutor)
+	public function asignarEstudiante(Request $request, Tutor $tutor)
 	{
-		//Rafa qué hace esto?
-		$tutor = $tutor->load(['proyectos.estudiantes.programa', 'programa']);
+		$tutor->estudiantes()->sync($request->estudiantes);
 
-		$tutor['estudiantes_sin_proyectos'] =  $tutor->estudiantes()
-												->with('programa')
-												->whereDoesntHave('proyectos')
-												->get();
-
-		$tutor['proyectos'] =  $tutor->proyectos()
-		->with('estudiantes')
-		->get();
+		$tutor->load(['estudiantesSinProyecto.programa', 'proyectos.estudiantes.programa', 'programa']);
 
 		$data = [
 			'status' => 200,
