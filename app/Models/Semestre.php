@@ -12,8 +12,8 @@ class Semestre extends Model
 
 	protected $table = "semestres";
 
-    public function Estudiantes():HasMany
-    {
-        return $this->HasMany(Estudiante:: class);
-    }
+	public function estudiantes():HasMany
+	{
+		return $this->HasMany(Estudiante:: class);
+	}
 }

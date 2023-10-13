@@ -36,8 +36,8 @@ Route::resource('actividad', ActividadController::class);
 Route::patch('categoria_certificacion/{categoriaCertificacion}/cambiar_estado', [CategoriaCertificacionController::class, 'cambiarEstado']);
 Route::resource('categoria_certificacion', CategoriaCertificacionController::class);
 
-Route::patch('estudiante/{estudiante}/consultar', [EstudianteController::class, 'consultar']);
-Route::patch('estudiante/{estudiante}/asignar_actividades', [EstudianteController::class, 'asignarActividades']);
+Route::patch('estudiante/{estudiante}/asignar_actividad', [EstudianteController::class, 'asignarActividad']);
+Route::patch('estudiante/{estudiante}/asignar_categoria', [EstudianteController::class, 'asignarCategoria']);
 Route::patch('estudiante/{estudiante}/cambiar_estado', [EstudianteController::class, 'cambiarEstado']);
 Route::resource('estudiante', EstudianteController::class);
 
@@ -52,8 +52,8 @@ Route::resource('matriculados', MatriculadosController::class)->parameters(['mat
 Route::patch('programa/{programa}/cambiar_estado', [ProgramaController::class, 'cambiarEstado']);
 Route::resource('programa', ProgramaController::class);
 
-Route::patch('proyecto/{proyecto}/cambiar_estado', [ProyectoController::class, 'cambiarEstado']);
 Route::patch('proyecto/{proyecto}/asignar_estudiante', [ProyectoController::class, 'asignarEstudiante']);
+Route::patch('proyecto/{proyecto}/cambiar_estado', [ProyectoController::class, 'cambiarEstado']);
 Route::resource('proyecto', ProyectoController::class);
 
 Route::patch('rol/{rol}/cambiar_estado', [RolController::class, 'cambiarEstado']);

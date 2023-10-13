@@ -22,7 +22,9 @@ class Estudiante extends Model
 
 	public function categoriasCertificacion(): BelongsToMany
 	{
-		return $this->belongsToMany(CategoriaCertificacion::class);
+		return $this->belongsToMany(CategoriaCertificacion::class)
+		->withPivot('fecha')
+		->orderByPivot('fecha', 'desc');
 	}
 
 	public function lineas(): BelongsToMany
@@ -49,7 +51,7 @@ class Estudiante extends Model
 		return $this->belongsTo(Semestre::class, 'semestre_id');
 	}
 
-	public function tipo_documento():BelongsTo
+	public function tipoDocumento():BelongsTo
 	{
 		return $this->belongsTo(TipoDocumento::class, 'tipo_documento_id');
 	}
