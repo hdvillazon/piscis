@@ -15,7 +15,7 @@ class Estudiante extends Model
 
 	protected $table = "estudiantes";
 
-	protected $appends = ['nombre_completo', 'nombre_completo_invertido'];
+	protected $appends = ['nombre_completo', 'nombre_completo_invertido', 'nombre_corto'];
 
 	public function actividades(): BelongsToMany
 	{
@@ -69,7 +69,13 @@ class Estudiante extends Model
 	}
 
 	public function getNombreCompletoInvertidoAttribute(){
-		$nombre_completo_invertido = $this->apellidos . ' ' . $this->nombres;
+		$nombre_completo_invertido = $this->apellidos . ', ' . $this->nombres;
 		return $nombre_completo_invertido;
+	}
+
+	public function getNombreCortoAttribute(){
+		$primer_nombre = explode(' ', $this->nombres)[0];
+		$nombre_corto = $primer_nombre . ' ' . substr($this->apellidos, 0, 1) . '.';
+		return $nombre_corto;
 	}
 }
