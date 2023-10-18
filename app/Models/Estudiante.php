@@ -15,6 +15,8 @@ class Estudiante extends Model
 
 	protected $table = "estudiantes";
 
+	protected $appends = ['nombre_completo', 'nombre_completo_invertido'];
+
 	public function actividades(): BelongsToMany
 	{
 		return $this->belongsToMany(Actividad::class);
@@ -59,5 +61,15 @@ class Estudiante extends Model
 	public function tutores():BelongsToMany
 	{
 		return $this->belongsToMany(Tutor::class);
+	}
+
+	public function getNombreCompletoAttribute(){
+		$nombre_completo = $this->nombres . ' ' . $this->apellidos;
+		return $nombre_completo;
+	}
+
+	public function getNombreCompletoInvertidoAttribute(){
+		$nombre_completo_invertido = $this->apellidos . ' ' . $this->nombres;
+		return $nombre_completo_invertido;
 	}
 }

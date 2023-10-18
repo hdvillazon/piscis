@@ -24,14 +24,6 @@ class EstudianteController extends Controller
 		->withSum('actividades as puntosActividades', 'puntos')
 		->get();
 
-		// hector agregue esto para que todos los end points tengan la propiedad nombre
-		
-		$estudiantes = $estudiantes->map(function ($estudiante) {
-			// Crear la propiedad "nombre" con los nombres y apellidos
-			$estudiante->nombre = $estudiante->nombres . ' ' . $estudiante->apellidos;
-			return $estudiante;
-		});
-
 		$data = [
 			'status' => 200,
 			'estudiantes' => $estudiantes
