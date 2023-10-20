@@ -21,4 +21,9 @@ class Linea extends Model
 	{
 		return $this->belongsToMany(Proyecto::class);
 	}
+	
+	public function tutores():BelongsToMany
+	{
+		return $this->belongsToMany(Tutor::class);
+	}
 }

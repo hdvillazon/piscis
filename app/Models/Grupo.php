@@ -24,9 +24,6 @@ class Grupo extends Model
 		return $this->belongsToMany(Linea::class);
 	}
 
-	public function proyectos() : HasManyThrough
-	{
-		return $this->hasManyThrough(Proyecto::class, Tutor::class);
-	}
+	
 
 }
