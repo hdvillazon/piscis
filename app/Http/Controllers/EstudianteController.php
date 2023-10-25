@@ -192,7 +192,7 @@ class EstudianteController extends Controller
 	
 	public function asignarActividad (Request $request, Estudiante $estudiante){
 
-		$estudiante->actividades()->sync($request->actividades);
+	$estudiante->actividades()->attach($request->actividad, ['descripcion' => $request->descripcion,'fecha' => $request->fecha,'ruta_evidencia'=> $request ->ruta_evidencia]);
 
 		$estudiante->load(['actividades', 'categoriasCertificacion', 'programa', 'proyectos', 'semestre', 'tipoDocumento', 'tutores'])
 		->loadSum('actividades as puntosActividades', 'puntos');
