@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-
-use App\Models\Estudiante;
-use App\Models\Semestre;
-use App\Models\Programa;
-use App\Models\TipoDocumento;
 use App\Models\Actividad;
+use App\Models\Estudiante;
+use App\Models\Programa;
+use App\Models\Semestre;
+use App\Models\TipoDocumento;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
@@ -191,9 +191,16 @@ class EstudianteController extends Controller
 	// }
 	
 	public function asignarActividad (Request $request, Estudiante $estudiante){
+		//Obtiene el archivo enviado desde el formulario
+		$archivo = $request->file('archivo');
 
-	$estudiante->actividades()->attach($request->actividad, ['descripcion' => $request->descripcion,'fecha' => $request->fecha,'ruta_evidencia'=> $request ->ruta_evidencia]);
+		$idActividad = $request->actividad;
 
+		//Guarda el archivo en el servidor y devuelve la ruta
+		$rutaArchivo = Storage::putFile('semilleros/estudiantes/' . $estudiante->codigo_est . '/actividades/' . $idActividad, $archivo);
+
+		$estudiante->actividades()->attach($idActividad, ['descripcion' => $request->descripcion, 'fecha' => $request->fecha, 'ruta_evidencia'=> $rutaArchivo]);
+		
 		$estudiante->load(['actividades', 'categoriasCertificacion', 'programa', 'proyectos', 'semestre', 'tipoDocumento', 'tutores'])
 		->loadSum('actividades as puntosActividades', 'puntos');
 		
