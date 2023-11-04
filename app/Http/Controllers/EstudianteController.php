@@ -214,7 +214,7 @@ class EstudianteController extends Controller
 
 	public function asignarCategoria (Request $request, Estudiante $estudiante){
 
-		$estudiante->categoriasCertificacion()->syncWithPivotValues($request->categoria, ['fecha' => $request->fecha]);
+		$estudiante->categoriasCertificacion()->attach($request->categoria, ['fecha' => $request->fecha]);
 
 		$estudiante->load(['actividades', 'categoriasCertificacion', 'programa', 'proyectos', 'semestre', 'tipoDocumento', 'tutores'])
 		->loadSum('actividades as puntosActividades', 'puntos');
