@@ -16,6 +16,4 @@ class Actividad extends Model
 	{
 		return $this->BelongsToMany(Estudiante::class);
 	}
-
-
 }

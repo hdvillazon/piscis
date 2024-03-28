@@ -23,7 +23,4 @@ class Grupo extends Model
 	{
 		return $this->belongsToMany(Linea::class);
 	}
-
-	
-
 }

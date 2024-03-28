@@ -48,5 +48,4 @@ class Tutor extends Model
 	{
 		return $this->belongsTo(TipoDocumento::class);
 	}
-
 }
